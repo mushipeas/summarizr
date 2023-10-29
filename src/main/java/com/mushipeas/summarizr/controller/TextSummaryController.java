@@ -21,7 +21,7 @@ class TextSummaryController {
 
   private final SummarizeText summarizeText;
 
-  @Secured({ "ROLE_USER" })
+  @Secured("ROLE_USER")
   @PostMapping("/text")
   public Mono<TextSummaryResponse> getTextSummary(@Valid @RequestBody TextSummaryRequest request) {
     return summarizeText.summarize(request.text(), request.minWords(), request.maxWords())
