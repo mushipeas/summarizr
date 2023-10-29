@@ -12,13 +12,14 @@ import org.springframework.web.bind.support.WebExchangeBindException;
 @ControllerAdvice
 class ValidationHandler {
 
-  @ExceptionHandler(WebExchangeBindException.class)
+  @ExceptionHandler({WebExchangeBindException.class})
   public ResponseEntity<List<String>> handleException(WebExchangeBindException e) {
-    var errors = e.getBindingResult()
+    List<String> errors = e.getBindingResult()
         .getAllErrors()
         .stream()
         .map(ValidationHandler::parseValidationErrorMessage)
         .collect(Collectors.toList());
+
     return ResponseEntity.badRequest().body(errors);
   }
 
