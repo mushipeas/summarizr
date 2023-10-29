@@ -1,4 +1,4 @@
-package com.mushipeas.summarizr.infrastructure;
+package com.mushipeas.summarizr.domain.summarizetext.infrastructure;
 
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;

@@ -1,4 +1,4 @@
-package com.mushipeas.summarizr.port;
+package com.mushipeas.summarizr.domain.summarizetext.port;
 
 import reactor.core.publisher.Mono;
 

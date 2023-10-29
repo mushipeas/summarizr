@@ -1,11 +1,11 @@
-package com.mushipeas.summarizr.adapter;
+package com.mushipeas.summarizr.domain.summarizetext.adapter;
 
-import com.mushipeas.summarizr.model.ChatRequest;
-import com.mushipeas.summarizr.model.ChatResponse;
-import com.mushipeas.summarizr.model.ChatResponse.Choice;
-import com.mushipeas.summarizr.model.Message;
-import com.mushipeas.summarizr.model.Usage;
-import com.mushipeas.summarizr.port.SummarizerService;
+import com.mushipeas.summarizr.domain.summarizetext.adapter.model.ChatRequest;
+import com.mushipeas.summarizr.domain.summarizetext.adapter.model.ChatResponse;
+import com.mushipeas.summarizr.domain.summarizetext.adapter.model.ChatResponse.Choice;
+import com.mushipeas.summarizr.domain.summarizetext.adapter.model.Message;
+import com.mushipeas.summarizr.domain.summarizetext.adapter.model.Usage;
+import com.mushipeas.summarizr.domain.summarizetext.port.SummarizerService;
 import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
@@ -24,12 +24,13 @@ public class OpenAiSummarizerService implements SummarizerService {
   private static final String OPEN_API_CHAT_URL = "https://api.openai.com/v1/chat/completions";
 
   @Override
-  @RegisterReflectionForBinding({ChatRequest.class, ChatResponse.class, Message.class, ChatResponse.Choice.class, Usage.class})
+  @RegisterReflectionForBinding(
+      {ChatRequest.class, ChatResponse.class, Message.class, ChatResponse.Choice.class, Usage.class}
+  )
   public Mono<String> summarize(String input, int minWords, int maxWords) {
     ChatRequest chatRequest = ChatRequest.createSummaryRequest(input, minWords, maxWords);
 
-    return getSummary(chatRequest)
-        .map(ChatResponse::choices)
+    return getSummary(chatRequest).map(ChatResponse::choices)
         .map(OpenAiSummarizerService::getSummaryFromChoices);
   }
 
@@ -47,6 +48,8 @@ public class OpenAiSummarizerService implements SummarizerService {
         .filter(choice -> choice.index() == 0)
         .filter(choice -> Objects.equals(choice.finishReason(), "stop"))
         .map(Choice::message)
-        .map(Message::content).findFirst().orElseThrow();
+        .map(Message::content)
+        .findFirst()
+        .orElseThrow();
   }
 }

@@ -1,6 +1,7 @@
-package com.mushipeas.summarizr.domain;
+package com.mushipeas.summarizr.domain.summarizetext;
 
-import com.mushipeas.summarizr.port.SummarizerService;
+import com.mushipeas.summarizr.domain.summarizetext.SummarizeText;
+import com.mushipeas.summarizr.domain.summarizetext.port.SummarizerService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,13 +12,13 @@ import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 @ExtendWith(MockitoExtension.class)
-class SummarizerTest {
+class SummarizeTextTest {
 
   @Mock
   private SummarizerService summarizerService;
 
   @InjectMocks
-  private Summarizer classUnderTest;
+  private SummarizeText classUnderTest;
 
   @Test
   void summarize_whenSummaryIsRestrictedToOneWord_shouldSummarizeText() {
