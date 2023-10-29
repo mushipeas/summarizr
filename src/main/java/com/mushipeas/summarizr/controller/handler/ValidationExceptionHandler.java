@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.support.WebExchangeBindException;
 
 @ControllerAdvice
-class ValidationHandler {
+class ValidationExceptionHandler {
 
   @ExceptionHandler({WebExchangeBindException.class})
   public ResponseEntity<List<String>> handleException(WebExchangeBindException e) {
     List<String> errors = e.getBindingResult()
         .getAllErrors()
         .stream()
-        .map(ValidationHandler::parseValidationErrorMessage)
+        .map(ValidationExceptionHandler::parseValidationErrorMessage)
         .collect(Collectors.toList());
 
     return ResponseEntity.badRequest().body(errors);
