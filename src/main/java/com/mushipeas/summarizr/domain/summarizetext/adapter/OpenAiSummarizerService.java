@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -21,7 +22,8 @@ public class OpenAiSummarizerService implements SummarizerService {
 
   private final WebClient client;
 
-  private static final String OPEN_API_CHAT_URL = "https://api.openai.com/v1/chat/completions";
+  @Value("${openai.chat.url}")
+  private String openApiChatUrl;
 
   @Override
   @RegisterReflectionForBinding(
@@ -36,7 +38,7 @@ public class OpenAiSummarizerService implements SummarizerService {
 
   private Mono<ChatResponse> getSummary(ChatRequest request) {
     return client.post()
-        .uri(OPEN_API_CHAT_URL)
+        .uri(openApiChatUrl)
         .contentType(MediaType.APPLICATION_JSON)
         .bodyValue(request)
         .retrieve()

@@ -1,0 +1,21 @@
+{
+  "id": "chatcmpl-8F8cTM74l8IRZ73A2qNuI3lGyroIR",
+  "object": "chat.completion",
+  "created": 1698618745,
+  "model": "gpt-3.5-turbo-0613",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "Avanti West Coast will cancel almost 20 services every Saturday between London and Manchester until the end of the year."
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 93,
+    "completion_tokens": 23,
+    "total_tokens": 116
+  }
+}
