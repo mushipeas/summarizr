@@ -14,6 +14,6 @@ import org.hibernate.validator.constraints.Length;
  * @param maxWords maximum words for the summary
  */
 public record TextSummaryRequest(
-    @NotNull @Length(max = 2000, message = "length must be between {min} and {max} chars") String text,
+    @NotNull @Length(max = 3000, message = "length must be between {min} and {max} chars") String text,
     @Min(0) @Max(300) int minWords,
     @NotNull @Min(0) @Max(300) Integer maxWords) implements Serializable {}

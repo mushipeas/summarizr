@@ -1,5 +1,6 @@
 package com.mushipeas.summarizr.controller;
 
+import com.mushipeas.summarizr.cache.CacheManager;
 import com.mushipeas.summarizr.controller.model.TextSummaryRequest;
 import com.mushipeas.summarizr.controller.model.TextSummaryResponse;
 import com.mushipeas.summarizr.domain.summarizetext.SummarizeText;
@@ -21,10 +22,15 @@ class TextSummaryController {
 
   private final SummarizeText summarizeText;
 
+  private final CacheManager<TextSummaryRequest, TextSummaryResponse> textSummaryCacheManager;
+
   @Secured("ROLE_USER")
   @PostMapping("/text")
   public Mono<TextSummaryResponse> getTextSummary(@Valid @RequestBody TextSummaryRequest request) {
-    return summarizeText.summarize(request.text(), request.minWords(), request.maxWords())
+    Mono<TextSummaryResponse> summaryPublisher = summarizeText.summarize(
+            request.text(), request.minWords(), request.maxWords())
         .map(TextSummaryResponse::new);
+
+    return textSummaryCacheManager.get(request, summaryPublisher);
   }
 }

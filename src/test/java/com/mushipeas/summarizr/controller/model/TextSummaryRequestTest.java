@@ -55,7 +55,7 @@ class TextSummaryRequestTest {
   static Stream<Arguments> textInvalidValueSupplier() {
     return Stream.of(
         Arguments.of(null, "must not be null"),
-        Arguments.of("a".repeat(2001), "length must be between 0 and 2000 chars")
+        Arguments.of("a".repeat(3001), "length must be between 0 and 3000 chars")
     );
   }
 

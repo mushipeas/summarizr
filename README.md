@@ -5,7 +5,7 @@ The application is fully non-blocking using Netty/WebFlux, with WebClient for se
 ## Building the application
 Build the application with the following command
         
-    mvn clean install
+    ./mvnw clean install
 
 The env variables `OPENAI_API_KEY`, `APP_USER_NAME` and `APP_USER_PASSWORD` need to be set in Intellij or in the terminal 
 before running the application.
@@ -13,7 +13,7 @@ This requires acquiring your key from OpenAI's developer portal.
 
 The application can be started locally either through Intellij, or with the following command:
 
-    mvn spring-boot:run
+    ./mvnw spring-boot:run
 
 ***
 
@@ -23,14 +23,15 @@ This means the username and password have to be added in the request header in b
 
     Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==
 
-Security can be disabled by setting the variable `SECURITY_ENABLED = false`. This is not advisable for actual usage, but can be helpful fo ra demo/testing.
+Security can be disabled by setting the variable `SECURITY_ENABLED = false`. 
+This is not advisable for actual usage, but can be helpful for demo/testing purposes.
 
 ***
 
 ## Spring Native Support
-In order to build the native image, the following command can be used:
+In order to build the `native image`, the following command can be used:
 
-    mvn -Pnative spring-boot:build-image
+    ./mvnw -Pnative spring-boot:build-image
 
 The image can then be launched with Docker using the following command:
 
@@ -46,3 +47,14 @@ Running the native image without security:
     -e OPENAI_API_KEY=$OPEN_API_KEY \
     -e SECURITY_ENABLED=false 
     docker.io/library/summarizr:0.0.1-SNAPSHOT
+
+Alternatively the `native binary` can be created with the following command:
+
+    ./mvnw native:compile -Pnative
+
+This can be run directly after the environment variables stated above are set.
+
+***
+
+## Notes
+Reflection hints for Caffeine found from https://segmentfault.com/a/1190000040355045/en
